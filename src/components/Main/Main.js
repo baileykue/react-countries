@@ -7,7 +7,7 @@ export default function Main() {
   const [flags, setFlags] = useState([]);
   const [query, setQuery] = useState('');
   const [continent, setContinent] = useState('all');
-  const [alpha, setAlpha] = useState('');
+  const [order, setOrder] = useState('default');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,14 +18,34 @@ export default function Main() {
   }, []);
 
   const filterFlags = () => {
-    return flags.filter((flag) => {
-      return (
-        // here is where you will continue to list out different filtering and sorting methods
-        // flag.name.sort((a, z) => a - z),
-        flag.name.toLowerCase().includes(query) &&
-        (flag.continent === continent || continent === 'all')
-      );
-    });
+    return flags
+      .sort((a, b) => {
+        if (order === 'asc') {
+          if (a.name < b.name) {
+            return -1;
+          }
+          if (a.name > b.name) {
+            return 1;
+          }
+
+          return 0;
+        } else if (order === 'dsc') {
+          if (a.name > b.name) {
+            return -1;
+          }
+          if (a.name < b.name) {
+            return 1;
+          }
+
+          return 0;
+        }
+      })
+      .filter((flag) => {
+        return (
+          flag.name.toLowerCase().includes(query) &&
+          (flag.continent === continent || continent === 'all')
+        );
+      });
   };
 
   return (
@@ -64,19 +84,19 @@ export default function Main() {
         <label>
           Sort Alphabetically
           <select
-            value={alpha}
+            value={order}
             onChange={(e) => {
-              setAlpha(e.target.value);
+              setOrder(e.target.value);
             }}
           >
-            <option value="a-z">A-Z</option>
-            <option value="z-a">Z-A</option>
+            <option value="default">Default</option>
+            <option value="asc">A-Z</option>
+            <option value="dsc">Z-A</option>
           </select>
         </label>
       </div>
 
       <div className="flag-display">
-        {/* here is where you will replace flags.map with your filter function, in order to update page based on user interaction */}
         {filterFlags().map((flag) => {
           return <FlagCard key={flag.name} {...flag} />;
         })}
