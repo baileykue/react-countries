@@ -15,7 +15,7 @@ export default function Main() {
   }, []);
 
   return (
-    <div>
+    <div className="flag-display">
       {flags.map((flag) => {
         return <FlagCard key={flag.name} {...flag} />;
       })}
