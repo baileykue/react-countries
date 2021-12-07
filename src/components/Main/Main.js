@@ -7,6 +7,7 @@ export default function Main() {
   const [flags, setFlags] = useState([]);
   const [query, setQuery] = useState('');
   const [continent, setContinent] = useState('all');
+  const [alpha, setAlpha] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,7 +21,9 @@ export default function Main() {
     return flags.filter((flag) => {
       return (
         // here is where you will continue to list out different filtering and sorting methods
-        flag.name.includes(query) && (flag.continent === continent || continent === 'all')
+        // flag.name.sort((a, z) => a - z),
+        flag.name.toLowerCase().includes(query) &&
+        (flag.continent === continent || continent === 'all')
       );
     });
   };
@@ -28,29 +31,48 @@ export default function Main() {
   return (
     <>
       <div>
-        <input
-          type="text"
-          value={query}
-          onChange={(e) => {
-            setQuery(e.target.value);
-          }}
-        />
+        <label>
+          Search for Flag
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => {
+              setQuery(e.target.value);
+            }}
+          />
+        </label>
 
-        <select
-          value={continent}
-          onChange={(e) => {
-            setContinent(e.target.value);
-          }}
-        >
-          <option value="all">All</option>
-          <option value="Asia">Asia</option>
-          <option value="Africa">Africa</option>
-          <option value="Antarctica">Antarctica</option>
-          <option value="Europe">Europe</option>
-          <option value="North America">North America</option>
-          <option value="South America">South America</option>
-          <option value="Oceania">Oceania</option>
-        </select>
+        <label>
+          Filter by Continent
+          <select
+            value={continent}
+            onChange={(e) => {
+              setContinent(e.target.value);
+            }}
+          >
+            <option value="all">All</option>
+            <option value="Asia">Asia</option>
+            <option value="Africa">Africa</option>
+            <option value="Antarctica">Antarctica</option>
+            <option value="Europe">Europe</option>
+            <option value="North America">North America</option>
+            <option value="South America">South America</option>
+            <option value="Oceania">Oceania</option>
+          </select>
+        </label>
+
+        <label>
+          Sort Alphabetically
+          <select
+            value={alpha}
+            onChange={(e) => {
+              setAlpha(e.target.value);
+            }}
+          >
+            <option value="a-z">A-Z</option>
+            <option value="z-a">Z-A</option>
+          </select>
+        </label>
       </div>
 
       <div className="flag-display">
