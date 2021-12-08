@@ -9,10 +9,13 @@ export default function Main() {
   const [continent, setContinent] = useState('all');
   const [order, setOrder] = useState('default');
 
+  const [wait, setWait] = useState(true);
+
   useEffect(() => {
     const fetchData = async () => {
       const data = await getFlags();
       setFlags(data);
+      setWait(false);
     };
     fetchData();
   }, []);
@@ -44,6 +47,8 @@ export default function Main() {
         return flag.name.includes(query) && (flag.continent === continent || continent === 'all');
       });
   };
+
+  if (wait) return <h1>LOADING</h1>;
 
   return (
     <>
