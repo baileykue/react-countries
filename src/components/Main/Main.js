@@ -17,7 +17,7 @@ export default function Main() {
     fetchData();
   }, []);
 
-  const filterFlags = () => {
+  const filterSortFlags = () => {
     return flags
       .sort((a, b) => {
         if (order === 'asc') {
@@ -41,17 +41,14 @@ export default function Main() {
         }
       })
       .filter((flag) => {
-        return (
-          flag.name.toLowerCase().includes(query) &&
-          (flag.continent === continent || continent === 'all')
-        );
+        return flag.name.includes(query) && (flag.continent === continent || continent === 'all');
       });
   };
 
   return (
     <>
       <div>
-        <label>
+        <label className="options">
           Search for Flag
           <input
             type="text"
@@ -62,7 +59,7 @@ export default function Main() {
           />
         </label>
 
-        <label>
+        <label className="options">
           Filter by Continent
           <select
             value={continent}
@@ -81,7 +78,7 @@ export default function Main() {
           </select>
         </label>
 
-        <label>
+        <label className="options">
           Sort Alphabetically
           <select
             value={order}
@@ -97,7 +94,7 @@ export default function Main() {
       </div>
 
       <div className="flag-display">
-        {filterFlags().map((flag) => {
+        {filterSortFlags().map((flag) => {
           return <FlagCard key={flag.name} {...flag} />;
         })}
       </div>
