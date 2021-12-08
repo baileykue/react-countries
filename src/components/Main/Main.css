@@ -15,3 +15,8 @@ select {
   padding: 5px;
   border-radius: 15px;
 }
+label {
+  color: black;
+  font-weight: bold;
+  text-shadow: 5px 5px 5px white;
+}

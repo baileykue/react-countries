@@ -54,7 +54,7 @@ export default function Main() {
     <>
       <div>
         <label className="options">
-          Search for Flag
+          Search for Flag:
           <input
             type="text"
             value={query}
@@ -65,7 +65,7 @@ export default function Main() {
         </label>
 
         <label className="options">
-          Filter by Continent
+          Filter by Continent:
           <select
             value={continent}
             onChange={(e) => {
@@ -84,7 +84,7 @@ export default function Main() {
         </label>
 
         <label className="options">
-          Sort Alphabetically
+          Sort Alphabetically:
           <select
             value={order}
             onChange={(e) => {
